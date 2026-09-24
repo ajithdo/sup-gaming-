@@ -16,7 +16,7 @@ function AdminButton({ className, children }) {
 }
 
 function AccountMenu({ onSignIn }) {
-  const { user, profile, isAdmin, signOut, configured } = useAuth();
+  const { user, profile, isAdmin, signOut } = useAuth();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const navigate = useNavigate();
@@ -30,12 +30,12 @@ function AccountMenu({ onSignIn }) {
     return () => { document.removeEventListener('pointerdown', close); document.removeEventListener('keydown', esc); };
   }, [open]);
 
-  if (!configured) return null;
-
+  // Always visible when signed out (if Supabase isn't configured yet, the
+  // sign-in dialog explains what's missing instead of the button vanishing).
   if (!user) {
     return (
-      <button type="button" className="nl-iconbtn nl-iconbtn--account" onClick={onSignIn} aria-label="Sign in" title="Sign in">
-        <Icon name="login" />
+      <button type="button" className="nl-signin" onClick={onSignIn} aria-label="Sign in or create an account">
+        <Icon name="login" /><span className="nl-signin__label">SIGN IN</span>
       </button>
     );
   }
@@ -69,7 +69,7 @@ function AccountMenu({ onSignIn }) {
 
 export default function SiteHeader({ live, onBook, onSignIn }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { user, isAdmin, signOut, configured } = useAuth();
+  const { user, isAdmin, signOut } = useAuth();
   const close = () => setMenuOpen(false);
 
   return (
@@ -102,9 +102,9 @@ export default function SiteHeader({ live, onBook, onSignIn }) {
           {isAdmin && (
             <Link to="/admin" className="is-admin" onClick={close}><Icon name="admin_panel_settings" />ADMIN DASHBOARD</Link>
           )}
-          {configured && (user
+          {user
             ? <button type="button" onClick={() => { close(); signOut(); }}><Icon name="logout" />SIGN OUT</button>
-            : <button type="button" onClick={() => { close(); onSignIn(); }}><Icon name="login" />SIGN IN</button>)}
+            : <button type="button" onClick={() => { close(); onSignIn(); }}><Icon name="login" />SIGN IN / CREATE ACCOUNT</button>}
         </nav>
       )}
     </header>

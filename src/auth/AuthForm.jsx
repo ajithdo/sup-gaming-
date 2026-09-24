@@ -27,7 +27,18 @@ export default function AuthForm({ initialMode = 'signin', defaults = {}, onSign
   const [info, setInfo] = useState('');
 
   if (!supabase) {
-    return <div className="nl-error">Sign-in isn’t configured yet. Add your Supabase URL and key to <code>.env.local</code>.</div>;
+    return (
+      <>
+        <h2 style={{ paddingRight: 52 }}>SIGN IN</h2>
+        <div className="nl-error">
+          Accounts aren’t switched on for this site yet. Please call or WhatsApp us to book for now.
+        </div>
+        <p className="nl-auth__sub">
+          Site owner: add <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_PUBLISHABLE_KEY</code> in
+          Vercel → Settings → Environment Variables, then redeploy.
+        </p>
+      </>
+    );
   }
 
   const switchTo = m => { setMode(m); setError(''); setInfo(''); };

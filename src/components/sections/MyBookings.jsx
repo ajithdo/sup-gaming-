@@ -57,7 +57,7 @@ export function MyBookings({ user, configured, bookings, roomName, onSignIn, onB
       {!user ? (
         <div className="nl-mybookings__empty">
           <span>{configured ? 'You’re not signed in.' : 'Online bookings aren’t connected yet.'}</span>
-          {configured && <button type="button" className="nl-violet-btn" onClick={onSignIn}>SIGN IN</button>}
+          <button type="button" className="nl-violet-btn" onClick={onSignIn}>SIGN IN / CREATE ACCOUNT</button>
         </div>
       ) : bookings.length === 0 ? (
         <div className="nl-mybookings__empty">

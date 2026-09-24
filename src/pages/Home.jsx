@@ -194,7 +194,7 @@ export default function Home() {
         onSignedIn={() => { setNotice(''); setAuth(a => ({ ...a, open: false })); }}
       />
       {!configured && (
-        <div className="nl-configbar">⚠ Supabase isn’t configured — showing the site without live data. Add VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY to .env.local.</div>
+        <div className="nl-configbar">⚠ Supabase isn’t connected, so sign-in and live bookings are off. Add VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY (Vercel → Settings → Environment Variables, or .env.local), then redeploy.</div>
       )}
     </div>
   );
